@@ -19,11 +19,11 @@ import simongumis.views.kezdolap.KezdolapView;
 import simongumis.views.kosar.KosarView;
 import simongumis.views.lefolglalt_idopontok.LefoglaltIdopontokView;
 import simongumis.views.rendelesek.RendelesekView;
+import simongumis.views.utils.SimonGumisConst;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 
 @PWA(name = "Simon Gumis", shortName = "Simon Gumis")
 public class MainView extends AppLayout {
@@ -60,21 +60,16 @@ public class MainView extends AppLayout {
     private static Tab[] elerhetoMenupontok() {
         final List<Tab> tabs = new ArrayList<>(4);
 
-        tabs.add(menupontFelvetele(VaadinIcon.HOME, "Kezdőlap", KezdolapView.class));
-
-        tabs.add(menupontFelvetele(VaadinIcon.DOT_CIRCLE, "Gumik", GumikView.class));
-
-        tabs.add(menupontFelvetele(VaadinIcon.CALENDAR, "Időpontfoglalás", IdopontfoglalasView.class));
-
-        tabs.add(menupontFelvetele(VaadinIcon.CART_O, "Kosár", KosarView.class));
+        tabs.add(menupontFelvetele(VaadinIcon.HOME, SimonGumisConst.MENU_TITLE_KEZDOLAP, KezdolapView.class));
+        tabs.add(menupontFelvetele(VaadinIcon.DOT_CIRCLE, SimonGumisConst.MENU_TITLE_GUMIK, GumikView.class));
+        tabs.add(menupontFelvetele(VaadinIcon.CALENDAR, SimonGumisConst.MENU_TITLE_IDOPONTFOGLALAS, IdopontfoglalasView.class));
+        tabs.add(menupontFelvetele(VaadinIcon.CART_O, SimonGumisConst.MENU_TITLE_KOSAR, KosarView.class));
 
         if (SecurityUtils.isUserLoggedIn()) {
 
-            tabs.add(menupontFelvetele(VaadinIcon.CALENDAR_USER, "Lefoglalt időpontok", LefoglaltIdopontokView.class));
-
-            tabs.add(menupontFelvetele(VaadinIcon.BOOK_DOLLAR, "Rendelések", RendelesekView.class));
-
-            tabs.add(menupontFelvetele(VaadinIcon.COGS, "Beállítások", BeallitasokView.class));
+            tabs.add(menupontFelvetele(VaadinIcon.CALENDAR_USER, SimonGumisConst.MENU_TITLE_LEFOGLALT_IDOPONTOK, LefoglaltIdopontokView.class));
+            tabs.add(menupontFelvetele(VaadinIcon.BOOK_DOLLAR, SimonGumisConst.MENU_TITLE_RENDELESEK, RendelesekView.class));
+            tabs.add(menupontFelvetele(VaadinIcon.COGS, SimonGumisConst.MENU_TITLE_BEALLITASOK, BeallitasokView.class));
         }
 
 

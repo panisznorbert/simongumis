@@ -22,10 +22,8 @@ public class RendelesiEgysegEntity extends BaseEntity implements Comparable<Rend
 
     @Override
     public int compareTo(RendelesiEgysegEntity rendelesiEgysegEntity) {
-        if(this.getGumi().getGyarto().compareTo(rendelesiEgysegEntity.getGumi().getGyarto()) != 0){
-            return this.getGumi().getGyarto().compareTo(rendelesiEgysegEntity.getGumi().getGyarto());
-        }
-        return this.getGumi().getMeret().compareTo(rendelesiEgysegEntity.getGumi().getMeret());
+
+        return this.getGumi().compareTo(rendelesiEgysegEntity.getGumi());
     }
 
     @Override

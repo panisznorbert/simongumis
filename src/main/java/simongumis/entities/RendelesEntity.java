@@ -1,7 +1,5 @@
 package simongumis.entities;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;

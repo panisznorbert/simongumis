@@ -1,18 +1,18 @@
 package simongumis.entities;
 
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
-
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Objects;
 
 
 @Entity
 @Table(name = "gumik")
 public class GumikEntity extends BaseEntity implements Comparable<GumikEntity>{
     private String gyarto;
-    @ManyToOne(cascade = {CascadeType.ALL})
-    protected GumiMeretekEntity meret;
+    private Integer szelesseg;
+    private Integer profil;
+    private Integer felni;
     private Integer ar;
     private String evszak;
     private String allapot;
@@ -20,9 +20,23 @@ public class GumikEntity extends BaseEntity implements Comparable<GumikEntity>{
     @Lob
     private byte[] kep;
 
+    public GumikEntity(){}
+
+    public GumikEntity(String gyarto, Integer szelesseg, Integer profil, Integer felni, Integer ar, String evszak, String allapot, Integer mennyisegRaktarban, byte[] kep) {
+        this.gyarto = gyarto;
+        this.szelesseg = szelesseg;
+        this.profil = profil;
+        this.felni = felni;
+        this.ar = ar;
+        this.evszak = evszak;
+        this.allapot = allapot;
+        this.mennyisegRaktarban = mennyisegRaktarban;
+        this.kep = kep;
+    }
+
     @Override
     public String toString() {
-        return gyarto + " " + meret + " " + evszak + " " + allapot;
+        return gyarto + " " + szelesseg + "/" + profil + "R" + felni + " " + evszak + " " + allapot;
     }
 
     @Override
@@ -32,17 +46,26 @@ public class GumikEntity extends BaseEntity implements Comparable<GumikEntity>{
         if (!super.equals(o)) return false;
         GumikEntity that = (GumikEntity) o;
         return gyarto.equalsIgnoreCase(that.gyarto) &&
-                meret.equals(that.meret) &&
+                szelesseg.equals(that.szelesseg) &&
+                profil.equals(that.profil) &&
+                felni.equals(that.felni) &&
                 evszak.equals(that.evszak) &&
                 allapot.equals(that.allapot);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), gyarto, meret, evszak, allapot);
+        int result = gyarto != null ? gyarto.hashCode() : 0;
+        result = 31 * result + (szelesseg != null ? szelesseg.hashCode() : 0);
+        result = 31 * result + (profil != null ? profil.hashCode() : 0);
+        result = 31 * result + (felni != null ? felni.hashCode() : 0);
+        result = 31 * result + (ar != null ? ar.hashCode() : 0);
+        result = 31 * result + (evszak != null ? evszak.hashCode() : 0);
+        result = 31 * result + (allapot != null ? allapot.hashCode() : 0);
+        result = 31 * result + (mennyisegRaktarban != null ? mennyisegRaktarban.hashCode() : 0);
+        result = 31 * result + Arrays.hashCode(kep);
+        return result;
     }
-
-
 
     public void setKep(byte[] kep) {
         this.kep = kep;
@@ -75,7 +98,16 @@ public class GumikEntity extends BaseEntity implements Comparable<GumikEntity>{
         public static Comparator<GumikEntity> MERET = new Comparator<GumikEntity>() {
             @Override
             public int compare(GumikEntity o1, GumikEntity o2) {
-                return o1.getMeret().compareTo(o2.getMeret());
+
+                if(o1.getSzelesseg().compareTo(o2.getSzelesseg()) == 0){
+                    if(o1.getProfil().compareTo(o2.getProfil()) == 0){
+                        return o1.getFelni().compareTo(o2.getFelni());
+                    }else{
+                        return o1.getProfil().compareTo(o2.getProfil());
+                    }
+                }else{
+                    return o1.getSzelesseg().compareTo(o2.getSzelesseg());
+                }
             }
         };
         public static Comparator<GumikEntity> ARNOVEKVO = new Comparator<GumikEntity>() {
@@ -100,12 +132,28 @@ public class GumikEntity extends BaseEntity implements Comparable<GumikEntity>{
         this.gyarto = gyarto;
     }
 
-    public GumiMeretekEntity getMeret() {
-        return meret;
+    public Integer getSzelesseg() {
+        return szelesseg;
     }
 
-    public void setMeret(GumiMeretekEntity meret) {
-        this.meret = meret;
+    public void setSzelesseg(Integer szelesseg) {
+        this.szelesseg = szelesseg;
+    }
+
+    public Integer getProfil() {
+        return profil;
+    }
+
+    public void setProfil(Integer profil) {
+        this.profil = profil;
+    }
+
+    public Integer getFelni() {
+        return felni;
+    }
+
+    public void setFelni(Integer felni) {
+        this.felni = felni;
     }
 
     public Integer getAr() {

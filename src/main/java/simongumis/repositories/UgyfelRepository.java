@@ -1,12 +1,16 @@
 package simongumis.repositories;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 import simongumis.entities.UgyfelEntity;
 
+import java.util.List;
+
 
 @Repository
-public interface UgyfelRepository extends JpaRepository<UgyfelEntity, Integer> {
+public interface UgyfelRepository extends JpaRepository<UgyfelEntity, Integer>, JpaSpecificationExecutor<UgyfelEntity> {
 
-    UgyfelEntity findByNevAndTelefonAndEmail(String nev, String telefon, String email);
+    List<UgyfelEntity> findAll(Specification<UgyfelEntity> spec);
 }

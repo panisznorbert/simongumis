@@ -1,15 +1,21 @@
 package simongumis.repositories;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import simongumis.entities.GumikEntity;
 
 import java.util.List;
 
-public interface GumikRepository extends JpaRepository<GumikEntity, Integer> {
-    GumikEntity findByGyartoAndMeret_SzelessegAndMeret_ProfilAndMeret_FelniAndEvszakAndAllapotAndAr(String gyarto, Integer szelesseg, Integer profil, Integer felni, String evszak, String allapot, Integer ar);
-
-    List<GumikEntity> findAllByMeretId(Integer id);
+public interface GumikRepository extends JpaRepository<GumikEntity, Integer>, JpaSpecificationExecutor<GumikEntity> {
 
     GumikEntity findGumikEntityById(Integer id);
+
+    //GumikEntity find(Specification<GumikEntity> spec);
+
+    //List<GumikEntity> findAll(Specification<GumikEntity> spec);
+
+
+
 
 }

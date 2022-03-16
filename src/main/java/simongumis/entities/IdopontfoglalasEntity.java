@@ -1,19 +1,27 @@
 package simongumis.entities;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "idopontfoglalasok")
 public class IdopontfoglalasEntity extends BaseEntity implements Comparable<IdopontfoglalasEntity>{
+
     private LocalDateTime datum;
     @ManyToOne(cascade = CascadeType.ALL)
     private UgyfelEntity ugyfel;
     private String megjegyzes;
 
+    public IdopontfoglalasEntity() {}
+
+    public IdopontfoglalasEntity(LocalDateTime datum, UgyfelEntity ugyfel, String megjegyzes) {
+        this.datum = datum;
+        this.ugyfel = ugyfel;
+        this.megjegyzes = megjegyzes;
+    }
+
+    @Override
+    public String toString() {return datum + ", { " + ugyfel.toString() + "}, " + megjegyzes;}
 
     @Override
     public int compareTo(IdopontfoglalasEntity o) {

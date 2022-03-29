@@ -139,28 +139,30 @@ public class FoglalasCalendar extends VerticalLayout {
 
             if (!lefoglaltIdopontok.contains(idopont)){
                 LocalTime localTime = LocalTime.of(i, 0);
-                Span ujSor = new Span(localTime.toString());
+                Button ujSor = new Button(localTime.toString());
                 ujSor.getElement().getThemeList().add("badge success");
                 ujSor.addClickListener(e -> foglalas(idopont));
                 ujSor.getElement().addEventListener("mouseover", e -> ujSor.setText("Lefoglal"));
                 ujSor.getElement().addEventListener("mouseout", e -> ujSor.setText(localTime.toString()));
                 newDay.add(ujSor);
             } else {
-                Span ujSor = new Span("Foglalt");
+                Button ujSor = new Button("Foglalt");
+                ujSor.setDisableOnClick(false);
                 ujSor.getElement().getThemeList().add("badge error");
                 newDay.add(ujSor);
             }
 
             if (!lefoglaltIdopontok.contains(idopont2)){
                 LocalTime localTime = LocalTime.of(i, 30);
-                Span ujSor = new Span(localTime.toString());
+                Button ujSor = new Button(localTime.toString());
                 ujSor.getElement().getThemeList().add("badge success");
                 ujSor.addClickListener(e -> foglalas(idopont2));
                 ujSor.getElement().addEventListener("mouseover", e -> ujSor.setText("Lefoglal"));
                 ujSor.getElement().addEventListener("mouseout", e -> ujSor.setText(localTime.toString()));
                 newDay.add(ujSor);
             } else {
-                Span ujSor = new Span("Foglalt");
+                Button ujSor = new Button("Foglalt");
+                ujSor.setDisableOnClick(false);
                 ujSor.getElement().getThemeList().add("badge error");
                 newDay.add(ujSor);
             }

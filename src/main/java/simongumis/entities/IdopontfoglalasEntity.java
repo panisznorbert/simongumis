@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class IdopontfoglalasEntity extends BaseEntity implements Comparable<IdopontfoglalasEntity>{
 
     private LocalDateTime datum;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UgyfelEntity ugyfel;
     private String megjegyzes;
 

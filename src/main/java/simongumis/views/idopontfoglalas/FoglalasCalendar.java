@@ -24,6 +24,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.logging.Logger;
 
 @JsModule("@vaadin/vaadin-lumo-styles/badge.js")
@@ -38,6 +39,7 @@ public class FoglalasCalendar extends VerticalLayout {
     private Button buttonDatePicker;
     private Dialog ugyfelAdatok;
     private LocalDate aktualisCalendarDatum;
+    private List<LocalDateTime> lefoglaltIdopontok;
 
     public FoglalasCalendar(IdopontfoglalasService idopontfoglalasService){
         this.idopontfoglalasService = idopontfoglalasService;
@@ -102,6 +104,8 @@ public class FoglalasCalendar extends VerticalLayout {
 
     private void createCalendar(LocalDate day){
         calendar = new HorizontalLayout();
+        lefoglaltIdopontok = idopontfoglalasService.keresesIdopontraHeti(LocalDateTime.of(aktualisCalendarDatum, LocalTime.of(0,0)));
+        lefoglaltIdopontok.forEach((i) -> LOGGER.info("foglalt: " + i.toString() + "\n"));
         for(int i=0;i<7;i++){
             calendar.add(createDay(day.plusDays(i)));
         }
@@ -126,12 +130,13 @@ public class FoglalasCalendar extends VerticalLayout {
             munkaidoVege = 12;
         }
 
+
         for(int i = munkaidoKezdete;i<munkaidoVege;i++){
 
             LocalDateTime idopont = LocalDateTime.of(day, LocalTime.of(i, 0));
             LocalDateTime idopont2 = LocalDateTime.of(day, LocalTime.of(i, 30));
 
-            if (idopontfoglalasService.keresesIdopontra(idopont) == null){
+            if (!lefoglaltIdopontok.contains(idopont)){
                 LocalTime localTime = LocalTime.of(i, 0);
                 Span ujSor = new Span(localTime.toString());
                 ujSor.getElement().getThemeList().add("badge success");
@@ -145,7 +150,7 @@ public class FoglalasCalendar extends VerticalLayout {
                 newDay.add(ujSor);
             }
 
-            if (idopontfoglalasService.keresesIdopontra(idopont2) == null){
+            if (!lefoglaltIdopontok.contains(idopont2)){
                 LocalTime localTime = LocalTime.of(i, 30);
                 Span ujSor = new Span(localTime.toString());
                 ujSor.getElement().getThemeList().add("badge success");
@@ -181,7 +186,7 @@ public class FoglalasCalendar extends VerticalLayout {
         nev.isRequired();
         EmailField email = new EmailField("E-mail");
         email.setErrorMessage("Rossz e-mail cím");
-        TextField tel = new TextField("Telfonszám");
+        TextField tel = new TextField("Telefonszám");
         tel.isRequired();
         TextField megjegyzes = new TextField("Megjegyzés");
 

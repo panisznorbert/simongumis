@@ -9,7 +9,10 @@ import simongumis.entities.UgyfelEntity;
 import simongumis.repositories.IdopontfoglalasRepository;
 import simongumis.repositories.UgyfelRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -29,6 +32,12 @@ public class IdopontfoglalasService {
         return idopontfoglalasRepository.findByDatum(localDateTime);
     }
 
+    public List<LocalDateTime> keresesIdopontraHeti(LocalDateTime localDateTime){
+        List<LocalDateTime> foglaltIdopontok = new ArrayList<>();
+        LocalDateTime endTime = LocalDateTime.of(localDateTime.plusDays(7).toLocalDate(), LocalTime.of(23, 30));
+        idopontfoglalasRepository.findAllByDatumBetween(localDateTime, endTime).forEach((foglalasEntity) -> foglaltIdopontok.add(foglalasEntity.getDatum()));
+        return foglaltIdopontok;
+    }
 
     public IdopontfoglalasEntity idopontLefoglalas(IdopontfoglalasEntity foglalas){
 

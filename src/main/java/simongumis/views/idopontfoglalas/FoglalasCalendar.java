@@ -6,7 +6,6 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Span;

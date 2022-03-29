@@ -39,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/HEARTBEAT/**",
             "/UIDL/**",
             "/frontend/**",
-            "/resources/**",
+            "/META-INF.resources/**",
             "/kezdolap/**",
             "/gumik/**",
             "/kosar/**",

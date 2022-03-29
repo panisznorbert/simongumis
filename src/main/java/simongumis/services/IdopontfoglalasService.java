@@ -49,7 +49,10 @@ public class IdopontfoglalasService {
         if (!ugyfel.isEmpty()){
             LOGGER.info("van ugyfel ");
             foglalas.setUgyfel(ugyfel.get(0));
+        }else{
+            foglalas.setUgyfel(ugyfelRepository.save(foglalas.getUgyfel()));
         }
+
         return idopontfoglalasRepository.save(foglalas);
     }
 }

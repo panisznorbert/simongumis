@@ -105,7 +105,8 @@ public class FoglalasCalendar extends VerticalLayout {
     private void createCalendar(LocalDate day){
         calendar = new HorizontalLayout();
         lefoglaltIdopontok = idopontfoglalasService.keresesIdopontraHeti(LocalDateTime.of(aktualisCalendarDatum, LocalTime.of(0,0)));
-        lefoglaltIdopontok.forEach((i) -> LOGGER.info("foglalt: " + i.toString() + "\n"));
+        //lefoglalt idopontok 7 napra:
+        //lefoglaltIdopontok.forEach((i) -> LOGGER.info("foglalt: " + i.toString()));
         for(int i=0;i<7;i++){
             calendar.add(createDay(day.plusDays(i)));
         }
@@ -170,7 +171,7 @@ public class FoglalasCalendar extends VerticalLayout {
 
     private void foglalas(LocalDateTime idopont){
 
-        LOGGER.info("Foglalásba belépet");
+        //LOGGER.info("Foglalásba belépet");
 
         ugyfelAdatok = new Dialog();
 
@@ -214,10 +215,12 @@ public class FoglalasCalendar extends VerticalLayout {
             idopontfoglalasService.idopontLefoglalas(idopontfoglalasEntity);
             ugyfelAdatok.removeAll();
             ugyfelAdatok.close();
+            ugyfelAdatok = new Dialog();
+            calendraRefresh(aktualisCalendarDatum);
             VerticalLayout mezok = new VerticalLayout();
             Span uzenet = new Span("Siekres időpontfoglalás");
             Button ok = new Button("Bezárás");
-            ok.addClickListener(e -> ugyfelAdatok.close());
+            ok.addClickListener(e ->  ugyfelAdatok.close());
             mezok.add(uzenet, ok);
             ugyfelAdatok.add(mezok);
             ugyfelAdatok.open();
